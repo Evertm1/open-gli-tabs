@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open All GLI (tabs)</title>
+    <script>
+        //declare lat and lon to avoid scope error
+        let lat, lon;
+
+        window.onload = function () {
+            // Get the current hash from the URL
+            const route = window.location.hash.substr(2); // Remove the '#/' part
+
+            // Split the hash by "/"
+            lat = route.split("/")[0];
+            lon = route.split("/")[1];
+
+            // Display lat and lon on the page
+            document.getElementById("latitude").textContent = `Latitude: ${lat}`;
+            document.getElementById("longitude").textContent = `Longitude: ${lon}`;
+
+            // Call openTabs after lat and lon are set
+            openTabs();
+        };
+
+        function openTabs() {
+            // Updated URLs with lat and lon
+            const url1 = `https://www.bing.com/maps/?cp=${lat}~${lon}&lvl=13`;
+            const url2 = `https://mapilio.com/app?lat=${lat}&lng=${lon}&zoom=13`;
+            const url3 = `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=13`;
+            const url4 = `https://kartaview.org/map/@${lat},${lon},13z`;
+
+            // Open URLs as tabs
+            window.open(url1, "_blank");
+            window.open(url2, "_blank");
+            window.open(url3, "_blank");
+            window.open(url4, "_blank");
+        }
+
+
+    </script>
+</head>
+<body>
+    <p>Opening ground level imagery...</p>
+    <p id="latitude"></p>
+    <p id="longitude"></p>
+</body>
+</html>
