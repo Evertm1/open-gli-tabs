@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open All GLI (tabs)</title>
     <script>
-        //declare lat and lon to avoid scope error
+        // Declare variables to avoid scope error
         let lat, lon;
-
+        let window1, window2, window3, window4;
+        
         window.onload = function () {
             // Get the current hash from the URL
             const route = window.location.hash.substr(2); // Remove the '#/' part
@@ -31,14 +32,29 @@
             const url3 = `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=13`;
             const url4 = `https://kartaview.org/map/@${lat},${lon},13z`;
 
-            // Open URLs as tabs
-            window.open(url1, "_blank");
-            window.open(url2, "_blank");
-            window.open(url3, "_blank");
-            window.open(url4, "_blank");
+            // Open URLs as tabs and store the references
+            window1 = window.open(url1, "_blank");
+            window2 = window.open(url2, "_blank");
+            window3 = window.open(url3, "_blank");
+            window4 = window.open(url4, "_blank");
+
+            // Start checking if all windows have finished loading
+            checkWindowsLoaded();
         }
 
-
+        function checkWindowsLoaded() {
+            // Check if all windows have loaded
+            if (window1.document.readyState === 'complete' &&
+                window2.document.readyState === 'complete' &&
+                window3.document.readyState === 'complete' &&
+                window4.document.readyState === 'complete') {
+                // Close the original window
+                window.close();
+            } else {
+                // If not, check again after 100ms
+                setTimeout(checkWindowsLoaded, 100);
+            }
+        }
     </script>
 </head>
 <body>
